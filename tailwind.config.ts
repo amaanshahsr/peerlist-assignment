@@ -11,6 +11,13 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        gray: {
+          1000: '#0D0D0D', 
+          50:"rgba(250, 251, 252, 1)"
+        },
+      },
+      boxShadow: {
+        'soft': '0px 1px 1px -0.5px rgba(0, 0, 0, 0.03)', 
       },
     },
   },
