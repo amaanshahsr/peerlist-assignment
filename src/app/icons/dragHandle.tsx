@@ -2,7 +2,7 @@ import * as React from "react";
 
 const DragHandle = () => (
   <svg
-    className="cursor-grab"
+    className="cursor-grab shrink-0"
     xmlns="http://www.w3.org/2000/svg"
     width="16"
     height="16"

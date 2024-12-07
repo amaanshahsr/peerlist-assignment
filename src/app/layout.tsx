@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter?.className} antialiased grid place-content-center px-5`}
+        className={`${inter?.className} antialiased grid  mx-auto grid-cols-[screen] md:grid-cols-[640px] place-content-center px-5`}
       >
         {children}
       </body>
