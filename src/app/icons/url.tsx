@@ -1,6 +1,6 @@
 import * as React from "react";
 
-const URL = () => (
+const URLIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="20"
@@ -17,4 +17,4 @@ const URL = () => (
   </svg>
 );
 
-export default URL;
+export default URLIcon;
