@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useSyncExternalStore } from "react";
+import React, { useEffect, useState } from "react";
 import CoreButton from "./components/coreButton";
 import { useRouter } from "next/navigation";
 import useDataStore, { DataItem } from "./store";
@@ -25,23 +25,25 @@ const Home = () => {
   >(null);
 
   useEffect(() => {
-    const drafts = window?.localStorage?.getItem("drafts");
-    const saved = window?.localStorage?.getItem("saved");
+    if (typeof window !== undefined) {
+      const drafts = window?.localStorage?.getItem("drafts");
+      const saved = window?.localStorage?.getItem("saved");
 
-    try {
-      let parsedSavedData = saved ? JSON.parse(saved) : null;
-      setSaved(parsedSavedData);
-    } catch (error) {
-      console.error("Error parsing saved data from localStorage:", error);
-      let parsedSavedData = null; // Default to null or handle gracefully
-    }
+      try {
+        let parsedSavedData = saved ? JSON.parse(saved) : null;
+        setSaved(parsedSavedData);
+      } catch (error) {
+        console.error("Error parsing saved data from localStorage:", error);
+        let parsedSavedData = null; // Default to null or handle gracefully
+      }
 
-    try {
-      let parsedDraftData = drafts ? JSON.parse(drafts) : null;
-      setdrafts(parsedDraftData);
-    } catch (error) {
-      console.error("Error parsing saved data from localStorage:", error);
-      let parsedDraftData = null; // Default to null or handle gracefully
+      try {
+        let parsedDraftData = drafts ? JSON.parse(drafts) : null;
+        setdrafts(parsedDraftData);
+      } catch (error) {
+        console.error("Error parsing saved data from localStorage:", error);
+        let parsedDraftData = null; // Default to null or handle gracefully
+      }
     }
   }, []);
 
