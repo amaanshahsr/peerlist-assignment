@@ -69,9 +69,9 @@ const CardSection = () => {
       })}
       {pathname?.includes("create") && (
         <CoreButton
-          styles="mb-10"
+          styles="mb-10 text-gray-1000"
           handleDropDownChange={handleDropDownChange}
-          iconPosition="right"
+          iconPosition="left"
           icon="add"
           text="Add Question"
           status="active"

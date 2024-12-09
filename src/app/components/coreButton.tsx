@@ -78,8 +78,8 @@ const CoreButton: React.FC<ButtonProps> = ({
       className={`border group w-max relative whitespace-nowrap ${
         iconPosition === "left" ? "flex-row" : "flex-row-reverse"
       } ${
-        styles ?? `bg-white`
-      } flex items-center font-semibold shadow-soft hover:scale-105 duration-150 text-gray-1000/40 text-base  gap-2  rounded-xl py-[0.375rem] px-4`}
+        styles ?? `bg-white text-gray-1000/40`
+      } flex items-center font-semibold shadow-soft hover:scale-105 duration-150  text-base  gap-2  rounded-xl py-[0.375rem] px-4`}
     >
       {icon && iconSet[icon as keyof typeof iconSet]} {text}
       {dropDownOpen && handleDropDownChange && (
