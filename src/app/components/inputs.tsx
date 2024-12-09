@@ -7,7 +7,7 @@ import Plus from "../icons/plus";
 import { v4 as uuidv4 } from "uuid";
 import { DataType } from "./Card/card";
 import useDataStore from "../store";
-import router, { usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 interface ShortAnswerProps {
   type?: "number" | "url" | "text";

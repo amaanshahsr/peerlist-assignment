@@ -38,7 +38,7 @@ interface DataStore {
   export const useDataStore = create<DataStore>((set) => ({
     data: [],
     replaceData:(item)=>
-        set((state) => ({ data: item})),
+        set(() => ({ data: item})),
 
     addData: (item) => 
       set((state) => ({ data: [...state.data, item] })),
