@@ -25,7 +25,13 @@ const Home = () => {
   >(null);
 
   useEffect(() => {
-    if (typeof window !== undefined) {
+    const hasWindow = () => {
+      return typeof window === "object";
+    };
+
+    if (!hasWindow()) {
+      // server-side code
+    } else {
       const drafts = window?.localStorage?.getItem("drafts");
       const saved = window?.localStorage?.getItem("saved");
 
