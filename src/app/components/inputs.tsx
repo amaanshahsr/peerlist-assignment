@@ -106,7 +106,8 @@ export const InputTypesDropdown = ({
         position?.length
           ? position
           : `top-[calc(100%+0.50rem)] left-1/2 -translate-x-1/2`
-      }   z-30 bg-white rounded-2xl p-1 min-w-64 flex flex-col border border-gray-300  `}
+      }   z-30 bg-white rounded-2xl 
+      p-1 min-w-64 duration-150 flex flex-col border border-gray-300  `}
     >
       <li
         key={"Input types"}

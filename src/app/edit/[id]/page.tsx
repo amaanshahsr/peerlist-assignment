@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { Saved } from "@/app/home/page";
+import { Saved } from "@/app/page";
 import useDataStore, { DataType } from "@/app/store";
 import Card from "@/app/components/Card/card";
 import CoreButton from "@/app/components/coreButton";
