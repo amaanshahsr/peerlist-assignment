@@ -24,7 +24,7 @@ Stack :-
 -Tailwind
 -Zustand
 
-Deployment Link -[https://peerlist-assignment-ob2aobn8w-amaan-shahs-projects.vercel.app/](https://peerlist-assignment-ob2aobn8w-amaan-shahs-projects.vercel.app/)
+Deployment Link -[https://peerlist-assignment-seven.vercel.app/](https://peerlist-assignment-seven.vercel.app/)
 
 
 GitHUb link - [https://github.com/amaanshahsr/peerlist-assignment/](https://github.com/amaanshahsr/peerlist-assignment/)
