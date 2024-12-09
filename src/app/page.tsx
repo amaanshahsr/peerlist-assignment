@@ -8,7 +8,7 @@ import Arrow from "./icons/arrow";
 export type Saved =
   | { [k: string]: { title: string; timestamp: Date; uuid: string }[] }[]
   | null;
-const Page = () => {
+const Home = () => {
   const router = useRouter();
   const { replaceData } = useDataStore();
   const handleRoute = (data: DataItem[]) => {
@@ -170,4 +170,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default Home;
