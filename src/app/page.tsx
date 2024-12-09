@@ -1,5 +1,6 @@
 "use client";
-import React from "react";
+
+import React, { useEffect, useState, useSyncExternalStore } from "react";
 import CoreButton from "./components/coreButton";
 import { useRouter } from "next/navigation";
 import useDataStore, { DataItem } from "./store";
@@ -16,24 +17,34 @@ const Home = () => {
     router?.push("/create");
   };
 
-  const drafts = window?.localStorage?.getItem("drafts");
-  const saved = window?.localStorage?.getItem("saved");
-  let parsedSavedData: Saved = null;
-  let parsedDraftData: Saved = null;
+  const [drafts, setdrafts] = useState<
+    { [k: string]: { title: string; timestamp: Date; uuid: string }[] }[] | null
+  >(null);
+  const [saved, setSaved] = useState<
+    { [k: string]: { title: string; timestamp: Date; uuid: string }[] }[] | null
+  >(null);
 
-  try {
-    parsedSavedData = saved ? JSON.parse(saved) : null;
-  } catch (error) {
-    console.error("Error parsing saved data from localStorage:", error);
-    parsedSavedData = null; // Default to null or handle gracefully
-  }
+  useEffect(() => {
+    const drafts = window?.localStorage?.getItem("drafts");
+    const saved = window?.localStorage?.getItem("saved");
 
-  try {
-    parsedDraftData = drafts ? JSON.parse(drafts) : null;
-  } catch (error) {
-    console.error("Error parsing saved data from localStorage:", error);
-    parsedDraftData = null; // Default to null or handle gracefully
-  }
+    try {
+      let parsedSavedData = saved ? JSON.parse(saved) : null;
+      setSaved(parsedSavedData);
+    } catch (error) {
+      console.error("Error parsing saved data from localStorage:", error);
+      let parsedSavedData = null; // Default to null or handle gracefully
+    }
+
+    try {
+      let parsedDraftData = drafts ? JSON.parse(drafts) : null;
+      setdrafts(parsedDraftData);
+    } catch (error) {
+      console.error("Error parsing saved data from localStorage:", error);
+      let parsedDraftData = null; // Default to null or handle gracefully
+    }
+  }, []);
+
   return (
     <div
       className={`w-full ${
@@ -75,7 +86,7 @@ const Home = () => {
                 </tr>
               </thead>
               <tbody>
-                {parsedSavedData?.map((form, index) => {
+                {saved?.map((form, index) => {
                   const key = Object.keys(form)[0];
 
                   return (
@@ -132,7 +143,7 @@ const Home = () => {
                 </tr>
               </thead>
               <tbody>
-                {parsedDraftData?.map((form, index) => {
+                {drafts?.map((form, index) => {
                   const key = Object.keys(form)[0];
                   console.log("asdnalskdnlasndljansd", form[key]);
                   return (
