@@ -146,9 +146,13 @@ export const EditableLabel = ({
   const [label, setLabel] = useState(defaultLabel);
   const router = usePathname();
 
-  console.log("ajbdkabskdbakhbdska", label);
+  console.log("helloLabel", label);
   const isEditMode = router?.includes("create");
   const isPublishMode = router?.includes("edit");
+
+  useEffect(() => {
+    setLabel(defaultLabel);
+  }, [defaultLabel]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const copyItem = { ...item, [labelType]: e?.target?.value?.trim() };
@@ -202,7 +206,7 @@ export const EditableLabel = ({
           item?.hasError && labelType === "title"
             ? "text-red-500"
             : "text-gray-1000"
-        } flex items-center gap-1`
+        } flex items-center gap-1 `
       }`}
     >
       {label}
@@ -226,13 +230,13 @@ export const EditableLabel = ({
           item?.hasError && labelType === "title"
             ? "text-red-300"
             : "text-gray-1000"
-        } flex items-center gap-1`
+        } flex items-center  gap-1`
       }`}
     >
       {label?.length
         ? label
         : placeholder
-        ? placeholder
+        ? `placeholder`
         : labelType === "title"
         ? `Write a question`
         : "Write a help text or caption (leave empty if not needed)."}
