@@ -15,9 +15,7 @@ bun dev
 ```
 
 
-Assumptions made:-
-- User has complete control over editing the input labels 
-- localStorage is acceptable inplace of API to store Data
+
 
 Stack :-
 -Next

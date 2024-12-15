@@ -6,6 +6,7 @@ import Save from "../icons/save";
 import Check from "../icons/check";
 import { InputTypesDropdown } from "./inputs";
 import { useOutsideClick } from "./hooks/useOutsideClick";
+import Link from "next/link";
 
 interface ButtonProps {
   text: string;
@@ -15,6 +16,7 @@ interface ButtonProps {
   handleClick?: () => void;
   handleDropDownChange?: (value: string) => void;
   styles?: string;
+  route?: string;
 }
 
 const iconSet = {
@@ -30,6 +32,7 @@ const CoreButton: React.FC<ButtonProps> = ({
   iconPosition,
   handleClick,
   handleDropDownChange,
+  route,
   styles,
 }) => {
   const [dropDownOpen, setDropDownOpen] = useState(false);
@@ -71,7 +74,27 @@ const CoreButton: React.FC<ButtonProps> = ({
     []
   );
 
-  return (
+  return route ? (
+    <Link href={route}>
+      <button
+        ref={buttonRef}
+        onClick={handleClick ?? handleDropDownClick}
+        className={`border group w-max relative whitespace-nowrap ${
+          iconPosition === "left" ? "flex-row" : "flex-row-reverse"
+        } ${
+          styles ?? `bg-white text-gray-1000/40`
+        } flex items-center font-semibold shadow-soft hover:scale-105 z-50 duration-150  text-base  gap-2  rounded-xl py-[0.375rem] px-4`}
+      >
+        {icon && iconSet[icon as keyof typeof iconSet]} {text}
+        {dropDownOpen && handleDropDownChange && (
+          <InputTypesDropdown
+            position={position}
+            handleDropDownChange={handleDropDownChange}
+          />
+        )}
+      </button>
+    </Link>
+  ) : (
     <button
       ref={buttonRef}
       onClick={handleClick ?? handleDropDownClick}
@@ -79,7 +102,7 @@ const CoreButton: React.FC<ButtonProps> = ({
         iconPosition === "left" ? "flex-row" : "flex-row-reverse"
       } ${
         styles ?? `bg-white text-gray-1000/40`
-      } flex items-center font-semibold shadow-soft hover:scale-105 duration-150  text-base  gap-2  rounded-xl py-[0.375rem] px-4`}
+      } flex items-center font-semibold shadow-soft hover:scale-105 z-50 duration-150  text-base  gap-2  rounded-xl py-[0.375rem] px-4`}
     >
       {icon && iconSet[icon as keyof typeof iconSet]} {text}
       {dropDownOpen && handleDropDownChange && (

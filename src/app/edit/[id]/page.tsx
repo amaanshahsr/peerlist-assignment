@@ -52,7 +52,7 @@ const Page = () => {
       </section>
       <div className="flex justify-between items-center w-full md:px-6">
         <CoreButton
-          handleClick={() => router?.push("/home")}
+          route="/"
           status="active"
           text="Back"
           // icon=""

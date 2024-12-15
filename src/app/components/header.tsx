@@ -3,10 +3,9 @@ import React, { useEffect, useState } from "react";
 import CoreButton from "./coreButton";
 import useDataStore, { DataItem, DataType } from "../store";
 import { EditableLabel } from "./Card/cardHeader";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 export const Header = () => {
   const { updateTitle, data } = useDataStore();
-  const router = useRouter();
   const pathname = usePathname();
   // titleObj will initially be []
 
@@ -36,7 +35,7 @@ export const Header = () => {
 
       {pathname?.includes("create") && (
         <CoreButton
-          handleClick={() => router?.push("/preview")}
+          route={`/preview`}
           text="Preview"
           icon="arrow"
           iconPosition="left"
