@@ -56,7 +56,7 @@ const CardSection = () => {
     // Exclude objects that have only 'title' and do not have 'id'
     return "id" in node;
   });
-  console.log("asdkakjdskasbd", data);
+
   return (
     <div className="grid gap-4 w-full  md:px-6 mt-10 place-items-center ">
       {filteredData?.map((node, index) => {

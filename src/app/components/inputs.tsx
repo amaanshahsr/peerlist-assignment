@@ -42,6 +42,7 @@ export const ShortAnswerField: React.FC<ShortAnswerProps> = ({
           hasError: false,
         })
       }
+      value={item?.value}
       className={`border px-2 type border-gray-200 min-h-8 rounded-lg shadow-soft   w-full`}
     />
   );
@@ -59,6 +60,7 @@ export const LongAnswerField = ({ item }: { item: DataType }) => {
           hasError: false,
         })
       }
+      value={item?.value}
       className="border min-h-20 px-2 resize-none border-gray-200 rounded-lg shadow-soft   w-full"
     />
   );
@@ -82,6 +84,7 @@ export const DatePicker = ({ item }: { item: DataType }) => {
     <div className="relative h-max ">
       <input
         type="date"
+        value={item?.value}
         onChange={(e) => handleChange(e)}
         className="border px-2  border-gray-200  min-h-8 rounded-lg shadow-soft opacity-0  cursor-pointer! w-full"
       />

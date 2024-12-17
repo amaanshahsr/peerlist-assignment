@@ -45,6 +45,7 @@ interface DataStore {
     updateData: (updatedFields: DataItem) => set((state) => {
         // Use a type guard to check if item is a DataType before accessing its 'id'
         const updatedData = state.data.map((item) => {
+          console.log("hetertetet8",updatedFields)
           if ("id" in item && "id" in updatedFields && item.id === updatedFields?.id) {
             return { ...updatedFields };  // Update the DataType object
           }

@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { Saved } from "@/app/page";
 import useDataStore, { DataType } from "@/app/store";
 import Card from "@/app/components/Card/card";
@@ -8,41 +8,6 @@ import CoreButton from "@/app/components/coreButton";
 import toast, { Toaster } from "react-hot-toast";
 
 const Page = () => {
-  const { data, updateData } = useDataStore();
-  const router = useRouter();
-
-  const notValid = (item: DataType): boolean =>
-    item.value.trim().length === 0 ||
-    (item?.inputType === "url" && !item?.value?.includes("https"));
-
-  function findAllWrongItemIndices(
-    data: DataType[],
-    notValid: (item: DataType) => boolean
-  ) {
-    return data.reduce((indices, item) => {
-      if (notValid(item)) indices.push(item);
-      return indices;
-    }, [] as DataType[]);
-  }
-
-  const handleCLick = () => {
-    const validData = data?.filter((node) => !("uuid" in node)) as DataType[];
-    const indices = findAllWrongItemIndices(validData, notValid);
-    console.log("asjdaksdbahks,", indices);
-
-    if (indices?.length > 0) {
-      indices?.forEach((node) => {
-        updateData({ ...node, hasError: true });
-        toast(`Please Provide a valid value for ${node?.title}`, {
-          icon: "❌",
-        });
-      });
-    } else {
-      toast(`Form Submitted Succesfully`, {
-        icon: "🚀",
-      });
-    }
-  };
   return (
     <div className="relative sm:border-x border-gray-200  min-h-screen flex flex-col items-center ">
       <Toaster />
@@ -50,21 +15,7 @@ const Page = () => {
       <section className="flex flex-col items-center w-full overflow-scroll ">
         <Card />
       </section>
-      <div className="flex justify-between items-center w-full md:px-6">
-        <CoreButton
-          route="/"
-          status="active"
-          text="Back"
-          // icon=""
-          iconPosition="left"
-        />
-        <CoreButton
-          handleClick={handleCLick}
-          text="Submit"
-          status="active"
-          styles=" bg-[#00AA45] ml-auto mr-6 mb-6 text-white border border-green-500"
-        />
-      </div>
+      <Footer />
     </div>
   );
 };
@@ -72,9 +23,11 @@ const Page = () => {
 export default Page;
 
 const Header = () => {
+  const searchParams = useSearchParams();
+  const viewMode = searchParams?.get("type");
   const { data, replaceData } = useDataStore();
   const uuid = usePathname()?.split("/")[2];
-  const saved = window?.localStorage?.getItem("saved");
+  const saved = window?.localStorage?.getItem(viewMode ?? "saved");
   let parsedSavedData: Saved = null;
 
   try {
@@ -117,5 +70,59 @@ const Header = () => {
         </div>
       </div>
     </header>
+  );
+};
+
+const Footer = () => {
+  const { data, updateData } = useDataStore();
+
+  const notValid = (item: DataType): boolean =>
+    item.value.trim().length === 0 ||
+    (item?.inputType === "url" && !item?.value?.includes("https"));
+
+  function findAllWrongItemIndices(
+    data: DataType[],
+    notValid: (item: DataType) => boolean
+  ) {
+    return data.reduce((indices, item) => {
+      if (notValid(item)) indices.push(item);
+      return indices;
+    }, [] as DataType[]);
+  }
+
+  const handleCLick = () => {
+    const validData = data?.filter((node) => !("uuid" in node)) as DataType[];
+    const indices = findAllWrongItemIndices(validData, notValid);
+    console.log("asjdaksdbahks,", indices);
+
+    if (indices?.length > 0) {
+      indices?.forEach((node) => {
+        updateData({ ...node, hasError: true });
+        toast(`Please Provide a valid value for ${node?.title}`, {
+          icon: "❌",
+        });
+      });
+    } else {
+      toast(`Form Submitted Succesfully`, {
+        icon: "🚀",
+      });
+    }
+  };
+  return (
+    <div className="flex justify-between items-center w-full md:px-6">
+      <CoreButton
+        route="/"
+        status="active"
+        text="Back"
+        // icon=""
+        iconPosition="left"
+      />
+      <CoreButton
+        handleClick={handleCLick}
+        text="Submit"
+        status="active"
+        styles=" bg-[#00AA45] ml-auto mr-6 mb-6 text-white border border-green-500"
+      />
+    </div>
   );
 };

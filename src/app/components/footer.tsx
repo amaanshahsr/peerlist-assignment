@@ -51,12 +51,14 @@ export const Footer = () => {
       toast("Saved to Drafts", {
         icon: "💽",
       });
+      router?.push("/");
     } else {
       const entry = { [formDetails[0]?.uuid]: data };
       window?.localStorage?.setItem("drafts", JSON?.stringify([entry]));
       toast("Saved to Drafts", {
         icon: "💽",
       });
+      router?.push("/");
     }
   };
 
@@ -64,7 +66,6 @@ export const Footer = () => {
     const formData = data?.filter((node) => "inputType" in node);
     const formDetails = data?.filter((node) => "uuid" in node);
 
-    // const index = findEmptyTitleIndex(formData);
     const indices = findAllWrongItemIndices(formData, notValid);
 
     console.log("indixess", indices);
@@ -93,26 +94,21 @@ export const Footer = () => {
 
       console.log("saved", saved);
 
-      const copyData = [...data];
-      copyData?.forEach((node) => {
-        updateData({ ...node, value: "" });
+      let copyData = [...data];
+      copyData = copyData?.map((node) => {
+        // updateData({ ...node, value: "" });
+        return { ...node, value: "", hasError: false };
       });
 
-      if (saved) {
-        const entry = { [uuidv4()]: copyData };
-        const parsedSaved = JSON?.parse(saved);
-        const updatedSaves = [entry, ...parsedSaved];
-        window?.localStorage?.setItem("saved", JSON?.stringify(updatedSaves));
-        toast("Published", {
-          icon: "💽",
-        });
-      } else {
-        const entry = { [uuidv4()]: copyData };
-        window?.localStorage?.setItem("saved", JSON?.stringify([entry]));
-        toast("Published", {
-          icon: "💽",
-        });
-      }
+      console.log("savedDadsada", copyData);
+
+      const entry = { [uuidv4()]: copyData };
+      console.log("savedd", saved, copyData);
+      const updatedSaves = saved ? [entry, ...JSON?.parse(saved)] : [entry];
+      window?.localStorage?.setItem("saved", JSON?.stringify(updatedSaves));
+      toast("Published", {
+        icon: "💽",
+      });
     }
 
     console.log("ajdbaksdbjkjas", data);
