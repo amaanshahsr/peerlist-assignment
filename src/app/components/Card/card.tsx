@@ -63,29 +63,27 @@ const CardSection = () => {
   });
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <div className="grid gap-4 w-full  md:px-6 mt-10 place-items-center ">
-        {filteredData?.map((node, index) => {
-          return (
-            <CardContainer key={index + node?.id + `cardContainer`}>
-              <CardHeader item={node} key={node?.id + `cardHeader`} />
-              <DynamicInput item={node} />
-            </CardContainer>
-          );
-        })}
-        {userCanAddQuestions && (
-          <CoreButton
-            styles="mb-10 text-gray-1000"
-            handleDropDownChange={handleDropDownChange}
-            iconPosition="left"
-            icon="add"
-            text="Add Question"
-            status="active"
-            key="Add Question"
-          />
-        )}
-      </div>
-    </Suspense>
+    <div className="grid gap-4 w-full  md:px-6 mt-10 place-items-center ">
+      {filteredData?.map((node, index) => {
+        return (
+          <CardContainer key={index + node?.id + `cardContainer`}>
+            <CardHeader item={node} key={node?.id + `cardHeader`} />
+            <DynamicInput item={node} />
+          </CardContainer>
+        );
+      })}
+      {userCanAddQuestions && (
+        <CoreButton
+          styles="mb-10 text-gray-1000"
+          handleDropDownChange={handleDropDownChange}
+          iconPosition="left"
+          icon="add"
+          text="Add Question"
+          status="active"
+          key="Add Question"
+        />
+      )}
+    </div>
   );
 };
 
