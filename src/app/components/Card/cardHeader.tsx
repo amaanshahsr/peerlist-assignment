@@ -13,7 +13,7 @@ import Save from "@/app/icons/save";
 interface CardHeaderProps {
   item: DataType;
 }
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 export const CardHeader: React.FC<CardHeaderProps> = ({ item }) => {
   const router = usePathname();
   const isEditMode = router?.includes("create");
@@ -145,9 +145,10 @@ export const EditableLabel = ({
   const [isEditing, setIsEditing] = useState(false);
   const [label, setLabel] = useState(defaultLabel);
   const router = usePathname();
-
+  const searchParams = useSearchParams();
+  const isTypeDraft = searchParams?.get("type") === "drafts";
   console.log("helloLabel", label);
-  const isEditMode = router?.includes("create");
+  const isEditMode = router?.includes("create") || isTypeDraft;
   const isPublishMode = router?.includes("edit");
 
   useEffect(() => {

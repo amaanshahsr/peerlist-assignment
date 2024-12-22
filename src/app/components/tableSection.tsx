@@ -1,6 +1,8 @@
+"use client";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Arrow from "../icons/arrow";
+import useDataStore from "../store";
 
 interface TableSectionProps {
   title: string;
@@ -12,7 +14,8 @@ interface Form {
 }
 
 const TableSection: React.FC<TableSectionProps> = ({ title, keyString }) => {
-  const [currentData, setCurrentData] = useState<Form[] | null>(null);
+  const [currentData, setCurrentData] = useState<Form[]>([]);
+  const { replaceData } = useDataStore();
 
   useEffect(() => {
     const hasWindow = () => {
@@ -29,7 +32,7 @@ const TableSection: React.FC<TableSectionProps> = ({ title, keyString }) => {
         setCurrentData(parsedData);
       } catch (error) {
         console.error("Error parsing saved data from localStorage:", error);
-        setCurrentData(null);
+        setCurrentData([]);
         // Default to null or handle gracefully
       }
     }
@@ -37,6 +40,20 @@ const TableSection: React.FC<TableSectionProps> = ({ title, keyString }) => {
 
   const router = useRouter();
 
+  const handleRouting = (uuid: string) => {
+    const selectedForm = currentData?.find(
+      (form) => Object.keys(form)[0] === uuid
+    );
+    if (selectedForm) {
+      console.log("selectedObject", Object.values(selectedForm)[0]);
+      replaceData(Object.values(selectedForm)[0]);
+      router?.push(
+        keyString === "saved" ? `edit/${uuid}?type=${keyString}` : `/create`
+      );
+    } else {
+      console.log("no form with selcted ID found");
+    }
+  };
   return (
     currentData && (
       <section className="w-full px-4 flex flex-col mt-4  gap-3">
@@ -79,9 +96,7 @@ const TableSection: React.FC<TableSectionProps> = ({ title, keyString }) => {
                     </td>
                     <td className="px-4 py-4 flex items-center justify-center   border-b text-sm text-blue-500">
                       <button
-                        onClick={() =>
-                          router?.push(`edit/${key}?type=${keyString}`)
-                        }
+                        onClick={() => handleRouting(key)}
                         className=" hover:underline"
                       >
                         <Arrow />

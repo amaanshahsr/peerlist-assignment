@@ -26,41 +26,97 @@ export const Footer = () => {
   const handleClick = () => {
     const drafts = window?.localStorage?.getItem("drafts");
     const formDetails = data?.filter((node) => "uuid" in node);
-    console.log("fromdetails", formDetails ? true : false);
+    console.log("formDetails", formDetails ? true : false);
+
     if (formDetails?.length === 0) {
       toast("Please enter a title for your form", {
         icon: "📝",
       });
       return;
-    } else if (drafts) {
-      const entry = { [formDetails[0]?.uuid]: data };
+    }
+
+    const entry = { [formDetails[0]?.uuid]: data };
+
+    if (drafts) {
       const parsedDrafts = JSON?.parse(drafts);
 
-      const entryAlreadyExist = parsedDrafts?.find(
-        (node: { [key: string]: DataItem }) =>
-          Object.keys(node)[0] === formDetails[0]?.uuid
-      );
-      if (entryAlreadyExist) {
-        toast("Already Saved", {
-          icon: "✅",
-        });
-        return;
-      }
-      const updatedDrafts = [entry, ...parsedDrafts];
-      window?.localStorage?.setItem("drafts", JSON?.stringify(updatedDrafts));
-      toast("Saved to Drafts", {
-        icon: "💽",
+      const updatedDrafts = parsedDrafts.map((node: DataItem) => {
+        // Check if the entry already exists
+        if (Object.keys(node)[0] === formDetails[0]?.uuid) {
+          // Update the existing entry
+          return entry;
+        }
+        return node;
       });
-      router?.push("/");
+
+      // Check if an update occurred, otherwise add a new entry
+      const entryAlreadyExist = updatedDrafts.some(
+        (node: DataItem) => Object.keys(node)[0] === formDetails[0]?.uuid
+      );
+
+      if (!entryAlreadyExist) {
+        updatedDrafts.unshift(entry);
+      }
+
+      window?.localStorage?.setItem("drafts", JSON?.stringify(updatedDrafts));
+      toast(entryAlreadyExist ? "Draft updated" : "Saved to Drafts", {
+        icon: entryAlreadyExist ? "🔄" : "💽",
+      });
     } else {
-      const entry = { [formDetails[0]?.uuid]: data };
+      // If no drafts exist, create a new array with the entry
       window?.localStorage?.setItem("drafts", JSON?.stringify([entry]));
       toast("Saved to Drafts", {
         icon: "💽",
       });
-      router?.push("/");
     }
+
+    router?.push("/");
   };
+
+  // const handleClick = () => {
+  //   const drafts = window?.localStorage?.getItem("drafts");
+  //   const formDetails = data?.filter((node) => "uuid" in node);
+  //   console.log("fromdetails", formDetails ? true : false);
+  //   if (formDetails?.length === 0) {
+  //     toast("Please enter a title for your form", {
+  //       icon: "📝",
+  //     });
+  //     return;
+  //   } else if (drafts) {
+  //     const entry = { [formDetails[0]?.uuid]: data };
+  //     const parsedDrafts = JSON?.parse(drafts);
+
+  //     const entryAlreadyExist = parsedDrafts?.find(
+  //       (node: { [key: string]: DataItem }) =>
+  //         Object.keys(node)[0] === formDetails[0]?.uuid
+  //     );
+  //     const entryIndex = parsedDrafts?.findIndex(
+  //       (node: { [key: string]: DataItem }) =>
+  //         Object.keys(node)[0] === formDetails[0]?.uuid
+  //     );
+
+  //     if (entryAlreadyExist) {
+
+  //       toast("Already Saved", {
+  //         icon: "✅",
+  //       });
+  //       return;
+  //     }
+  //     const updatedDrafts = [entry, ...parsedDrafts];
+  //     window?.localStorage?.setItem("drafts", JSON?.stringify(updatedDrafts));
+  //     toast("Saved to Drafts", {
+  //       icon: "💽",
+  //     });
+  //     router?.push("/");
+  //   } else {
+  //     const entry = { [formDetails[0]?.uuid]: data };
+  //     window?.localStorage?.setItem("drafts", JSON?.stringify([entry]));
+  //     toast("Saved to Drafts", {
+  //       icon: "💽",
+  //     });
+  //     router?.push("/");
+  //   }
+  // };
 
   const handleSave = () => {
     const formData = data?.filter((node) => "inputType" in node);

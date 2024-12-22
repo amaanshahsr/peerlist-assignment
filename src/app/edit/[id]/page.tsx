@@ -12,7 +12,7 @@ const Page = () => {
     <div className="relative sm:border-x border-gray-200  min-h-screen flex flex-col items-center ">
       <Toaster />
       <Header />
-      <section className="flex flex-col items-center w-full overflow-scroll ">
+      <section className="flex flex-col items-center w-full h-[calc(100vh-8rem)]  overflow-scroll ">
         <Card />
       </section>
       <Footer />
@@ -98,7 +98,7 @@ const Footer = () => {
     if (indices?.length > 0) {
       indices?.forEach((node) => {
         updateData({ ...node, hasError: true });
-        toast(`Please Provide a valid value for ${node?.title}`, {
+        toast(`Please Fill ${node?.title}`, {
           icon: "❌",
         });
       });
@@ -110,13 +110,7 @@ const Footer = () => {
   };
   return (
     <div className="flex justify-between items-center w-full md:px-6">
-      <CoreButton
-        route="/"
-        status="active"
-        text="Back"
-        // icon=""
-        iconPosition="left"
-      />
+      <CoreButton route="/" status="active" text="Back" iconPosition="left" />
       <CoreButton
         handleClick={handleCLick}
         text="Submit"

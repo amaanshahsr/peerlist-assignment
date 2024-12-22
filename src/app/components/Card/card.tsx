@@ -6,7 +6,7 @@ import DynamicInput from "../dynamicInput";
 import { useDataStore } from "../../store";
 import { CardContainer } from "./cardContainer";
 import { CardHeader } from "./cardHeader";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 
 export interface DataType {
   title: string;
@@ -27,6 +27,10 @@ export interface DataType {
 const CardSection = () => {
   const pathname = usePathname();
   const { data, addData } = useDataStore();
+  const searchParams = useSearchParams();
+
+  const userCanAddQuestions =
+    pathname?.includes("create") || searchParams?.get("type") === "drafts";
 
   const emptyCardData = {
     id: "",
@@ -67,7 +71,7 @@ const CardSection = () => {
           </CardContainer>
         );
       })}
-      {pathname?.includes("create") && (
+      {userCanAddQuestions && (
         <CoreButton
           styles="mb-10 text-gray-1000"
           handleDropDownChange={handleDropDownChange}
