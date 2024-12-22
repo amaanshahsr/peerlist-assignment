@@ -6,17 +6,17 @@ import { Toaster } from "react-hot-toast";
 
 const page = () => {
   return (
-    <main className="w-full min-h-screen relative sm:border-x border-gray-200 ">
-      <Toaster />
-      <Header />
-      <Suspense fallback={<div></div>}>
+    <Suspense fallback={<div>Loading...</div>}>
+      <main className="w-full min-h-screen relative sm:border-x border-gray-200 ">
+        <Toaster />
+        <Header />
         <section className="flex flex-col items-center w-full  h-[calc(100vh-8rem)] overflow-scroll px-4 ">
           <Card />
         </section>
-      </Suspense>
 
-      <Footer />
-    </main>
+        <Footer />
+      </main>
+    </Suspense>
   );
 };
 
