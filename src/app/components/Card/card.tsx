@@ -67,7 +67,9 @@ const CardSection = () => {
       {filteredData?.map((node, index) => {
         return (
           <CardContainer key={index + node?.id + `cardContainer`}>
-            <CardHeader item={node} key={node?.id + `cardHeader`} />
+            <Suspense fallback={<div>Loading...</div>}>
+              <CardHeader item={node} key={node?.id + `cardHeader`} />
+            </Suspense>
             <DynamicInput item={node} />
           </CardContainer>
         );
