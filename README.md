@@ -1,8 +1,8 @@
-Nextjs Form Builder
+A Minimal FormBuilder built on top on Nextjs [WIP]
 
 ## Getting Started
 
-First, run the development server:
+🏃🏾 the server using:
 
 ```bash
 npm run dev
@@ -13,17 +13,16 @@ pnpm dev
 # or
 bun dev
 ```
+Main 🛠️ used ->
+ NextJs 
+ Tailwind CSS
+ Zustand
 
+This is my first project using Zustand for state management, new edits, additions and recommended changes are always welcome!
 
-
-
-Stack :-
--Next
--Tailwind
--Zustand
-
+You can view the project below :
+ 
 Deployment Link -[https://peerlist-assignment-seven.vercel.app/](https://peerlist-assignment-seven.vercel.app/)
 
 
-GitHUb link - [https://github.com/amaanshahsr/peerlist-assignment/](https://github.com/amaanshahsr/peerlist-assignment/)
 
