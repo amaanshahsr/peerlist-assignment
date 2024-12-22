@@ -1,13 +1,12 @@
 "use client";
 
-import CoreButton from "../coreButton";
 import { v4 as uuidv4 } from "uuid";
 import DynamicInput from "../dynamicInput";
 import { useDataStore } from "../../store";
 import { CardContainer } from "./cardContainer";
 import { CardHeader } from "./cardHeader";
-import { usePathname, useSearchParams } from "next/navigation";
 import { Suspense } from "react";
+import CardBottomButton from "./cardBottomButton";
 
 export interface DataType {
   title: string;
@@ -26,12 +25,7 @@ export interface DataType {
 }
 
 const CardSection = () => {
-  const pathname = usePathname();
   const { data, addData } = useDataStore();
-  const searchParams = useSearchParams();
-
-  const userCanAddQuestions =
-    pathname?.includes("create") || searchParams?.get("type") === "drafts";
 
   const emptyCardData = {
     id: "",
@@ -74,17 +68,9 @@ const CardSection = () => {
           </CardContainer>
         );
       })}
-      {userCanAddQuestions && (
-        <CoreButton
-          styles="mb-10 text-gray-1000"
-          handleDropDownChange={handleDropDownChange}
-          iconPosition="left"
-          icon="add"
-          text="Add Question"
-          status="active"
-          key="Add Question"
-        />
-      )}
+      <Suspense fallback={<div>Loading...</div>}>
+        <CardBottomButton handleDropDownChange={handleDropDownChange} />
+      </Suspense>
     </div>
   );
 };
