@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from "react";
 import CoreButton from "./coreButton";
 import useDataStore, { DataItem, DataType } from "../store";
-import { EditableLabel } from "./Card/cardHeader";
 import { usePathname } from "next/navigation";
+import EditableLabel from "./ediitableLabel";
 export const Header = () => {
   const { updateTitle, data } = useDataStore();
   const pathname = usePathname();
