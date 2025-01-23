@@ -1,3 +1,5 @@
+"use client";
+
 import React, { Suspense } from "react";
 import Card from "../components/Card/card";
 import { Header } from "../components/header";
