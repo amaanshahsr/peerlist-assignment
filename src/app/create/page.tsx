@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Card from "../components/Card/card";
 import { Header } from "../components/header";
