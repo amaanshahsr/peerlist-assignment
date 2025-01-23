@@ -1,3 +1,4 @@
+"use client";
 import { usePathname, useSearchParams } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import Edit from "../icons/edit";
