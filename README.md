@@ -1,4 +1,4 @@
-A Minimal FormBuilder built on top on Nextjs [WIP]
+A Minimal FormBuilder built on top of Nextjs [WIP]
 
 ## Getting Started
 
